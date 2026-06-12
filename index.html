@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructeur de Protocole d&#x27;Études Cliniques Personnalisé | Rationalisez la conception de vos essais cliniques avec précision.</title>
+    <meta name="description" content="Générez des ébauches de protocoles pour vos essais cliniques en sélectionnant des paramètres clés et des sections standardisées. Accélérez la phase de conception de vos études.">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --primary-color: #b89a69; /* Sandline-inspired, darker gold */
+            --secondary-color: #4a4a4a;
+            --border-color: #333;
+            --font-family-headline: 'Georgia', serif;
+            --font-family-body: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: var(--font-family-headline);
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .main-content {
+            flex: 3;
+            padding: 0 40px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .tool-rail {
+            flex: 2;
+            padding: 0 40px;
+        }
+
+        h2, h3 {
+            font-family: var(--font-family-headline);
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            font-weight: normal;
+        }
+
+        p {
+            margin-bottom: 1em;
+            color: #ccc;
+        }
+
+        .statement-block {
+            margin-bottom: 40px;
+        }
+
+        .statement-block h2 {
+            font-size: 2.5em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .statement-block p {
+            font-size: 1.1em;
+            max-width: 700px;
+        }
+
+        form#tool-form {
+            background-color: var(--secondary-color);
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            background-color: #333;
+            color: var(--text-color);
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-family: var(--font-family-body);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button#tool-submit {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button#tool-submit:hover {
+            background-color: #d1b17b;
+        }
+
+        .section-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #2b2b2b;
+            border-radius: 4px;
+            border: 1px solid #3d3d3d;
+        }
+
+        .section-group label {
+            color: #d0d0d0;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        .section-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        #tool-result {
+            background-color: var(--secondary-color);
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            min-height: 200px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            color: #e0e0e0;
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+
+        .result-section h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .result-section p {
+            color: #ccc;
+            margin-bottom: 0.5em;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            padding: 40px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: #999;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .seo-block {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+            color: #b0b0b0;
+        }
+
+        .seo-block h2 {
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .seo-block p {
+            margin-bottom: 1em;
+            line-height: 1.7;
+            color: #a0a0a0;
+        }
+
+        .seo-block ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .seo-block li {
+            background-color: #2b2b2b;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .main-content {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 30px;
+            }
+            .tool-rail {
+                padding-top: 30px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            h1 {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header, .main-content, .tool-rail {
+                padding: 15px 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .statement-block h2 {
+                font-size: 2em;
+            }
+        }
+
+    </style>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://constructeur-de-protocole-d-etudes-cliniques-pe-c03c27f8.onrender.com">
+    <meta property="og:title" content="Constructeur de Protocole d&#x27;Études Cliniques Personnalisé">
+    <meta property="og:description" content="Générez des ébauches de protocoles pour vos essais cliniques en sélectionnant des paramètres clés et des sections standardisées. Accélérez la phase de conception de vos études.">
+    <meta property="og:url" content="https://constructeur-de-protocole-d-etudes-cliniques-pe-c03c27f8.onrender.com">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Constructeur de Protocole d'Études Cliniques Personnalisé", "description": "Générez des ébauches de protocoles pour vos essais cliniques en sélectionnant des paramètres clés et des sections standardisées. Accélérez la phase de conception de vos études.", "url": "https://constructeur-de-protocole-d-etudes-cliniques-pe-c03c27f8.onrender.com", "applicationCategory": "UtilityApplication", "operatingSystem": "Web Browser"}</script>
+</head>
+<body data-site-slug="constructeur-de-protocole-d-etudes-cliniques-pe-c03c27f8" data-runtime-mode="document_generator">
+    <header>
+        <h1>Constructeur de Protocole d'Études Cliniques</h1>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <section class="statement-block">
+                <h2>Rationalisez la conception de vos essais cliniques avec précision.</h2>
+                <p>Développé pour les chercheurs et les CROs, notre outil intuitif vous permet de générer rapidement des ébauches de protocoles d'études cliniques. Sélectionnez les paramètres clés et intégrez des sections standardisées pour assurer rigueur et conformité, accélérant ainsi significativement votre phase de conception. Gagnez en efficacité, maintenez la qualité.</p>
+                <p>Éliminez les tâches répétitives et concentrez-vous sur l'innovation. Notre plateforme est conçue pour la rigueur scientifique, la flexibilité et l'intégration facile dans vos workflows existants.</p>
+            </section>
+
+            <section id="tool-result">
+                <h3 id="result-headline">Votre Protocole Généré Apparaîtra Ici</h3>
+                <p>Configurez les options dans le panneau de droite et cliquez sur "Générer le Protocole" pour voir votre ébauche ici.</p>
+            </section>
+        </div>
+
+        <div class="tool-rail">
+            <form id="tool-form">
+                <h2>Paramètres du Protocole</h2>
+
+                <label for="studyTitle">Titre de l'étude (Provisoire)</label>
+                <input type="text" id="studyTitle" placeholder="Ex: Étude de Phase III sur le composé XYZ pour l'hypertension" required>
+
+                <label for="studyPhase">Phase de l'étude</label>
+                <select id="studyPhase" required>
+                    <option value="">Sélectionnez une phase</option>
+                    <option value="Phase I">Phase I</option>
+                    <option value="Phase II">Phase II</option>
+                    <option value="Phase III">Phase III</option>
+                    <option value="Phase IV">Phase IV</option>
+                    <option value="Observationnelle">Observationnelle</option>
+                </select>
+
+                <label for="therapeuticArea">Domaine thérapeutique</label>
+                <input type="text" id="therapeuticArea" placeholder="Ex: Oncologie, Cardiologie, Neurologie" required>
+
+                <label for="intervention">Intervention/Produit à l'étude</label>
+                <input type="text" id="intervention" placeholder="Ex: Molécule ABC, Thérapie génique, Dispositif médical" required>
+
+                <label for="population">Population d'étude cible</label>
+                <textarea id="population" placeholder="Ex: Adultes de 18-65 ans atteints de diabète de type 2 non contrôlé"></textarea>
+
+                <h3>Sections Standardisées à Inclure</h3>
+                <div class="section-group">
+                    <label><input type="checkbox" name="sections" value="Résumé du Protocole" checked> Résumé du Protocole</label>
+                    <label><input type="checkbox" name="sections" value="Contexte et Justification"> Contexte et Justification</label>
+                    <label><input type="checkbox" name="sections" value="Objectifs de l'Étude"> Objectifs de l'Étude</label>
+                    <label><input type="checkbox" name="sections" value="Critères d'Inclusion/Exclusion"> Critères d'Inclusion/Exclusion</label>
+                    <label><input type="checkbox" name="sections" value="Méthodologie de l'Étude"> Méthodologie de l'Étude</label>
+                    <label><input type="checkbox" name="sections" value="Collecte et Gestion des Données"> Collecte et Gestion des Données</label>
+                    <label><input type="checkbox" name="sections" value="Considérations Éthiques"> Considérations Éthiques</label>
+                    <label><input type="checkbox" name="sections" value="Plan d'Analyse Statistique"> Plan d'Analyse Statistique</label>
+                    <label><input type="checkbox" name="sections" value="Calendrier de l'Étude"> Calendrier de l'Étude</label>
+                    <label><input type="checkbox" name="sections" value="Références"> Références</label>
+                </div>
+
+                <button type="submit" id="tool-submit">Générer le Protocole</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="seo-block">
+            <h2>Optimisation de la Recherche pour les Professionnels de la Recherche Clinique</h2>
+            <p>Notre outil de génération de protocole d'étude clinique est spécifiquement conçu pour répondre aux besoins des professionnels en France. Que vous soyez un chercheur académique, un médecin investigateur, ou un membre d'une Organisation de Recherche Contractuelle (CRO), vous trouverez ici une solution efficace pour la rédaction de vos documents clés. Facilitez la création de votre <strong>protocole de recherche clinique</strong>, <strong>protocole d'essai clinique</strong> ou <strong>plan d'étude clinique</strong>. Nous aidons à structurer des documents complexes pour les <strong>études interventionnelles</strong>, les <strong>essais de phase I, II, III, IV</strong>, et les <strong>études observationnelles</strong>.</p>
+            <p>Utilisez notre plateforme pour la <strong>conception de protocole médical</strong>, la <strong>génération de sections standardisées ICH-GCP</strong>, et l'<strong>accélération de la soumission réglementaire</strong>. Notre générateur est idéal pour les équipes nécessitant une <strong>ébauche de protocole rapide</strong>, un <strong>template de protocole d'étude</strong> ou un <strong>assistant de rédaction de protocole</strong>. Développé en tenant compte des exigences réglementaires françaises et européennes, il est un atout pour la <strong>gestion de projet clinique</strong> et l'<strong>optimisation des coûts de recherche</strong>.</p>
+            <ul>
+                <li>Protocole d'étude clinique</li>
+                <li>Générateur de protocole médical</li>
+                <li>Essai clinique France</li>
+                <li>Rédaction protocole ICH-GCP</li>
+                <li>Outil CRO recherche clinique</li>
+                <li>Conception étude interventionnelle</li>
+                <li>Modèle protocole essai clinique</li>
+                <li>Accélérer recherche médicale</li>
+                <li>Planification étude clinique</li>
+                <li>Logiciel protocole recherche</li>
+            </ul>
+        </div>
+        <p>&copy; 2023 Constructeur de Protocole d'Études Cliniques. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        document.getElementById('tool-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const studyTitle = document.getElementById('studyTitle').value;
+            const studyPhase = document.getElementById('studyPhase').value;
+            const therapeuticArea = document.getElementById('therapeuticArea').value;
+            const intervention = document.getElementById('intervention').value;
+            const population = document.getElementById('population').value;
+            const selectedSections = Array.from(document.querySelectorAll('input[name="sections"]:checked')).map(cb => cb.value);
+
+            let protocolOutput = `
+### TITRE DU PROTOCOLE : ${studyTitle || '[Titre de l\'étude Provisoire]'}
+
+### INFORMATIONS GÉNÉRALES
+*   **Phase de l'Étude :** ${studyPhase || '[Non spécifié]'}
+*   **Domaine Thérapeutique :** ${therapeuticArea || '[Non spécifié]'}
+*   **Intervention/Produit :** ${intervention || '[Non spécifié]'}
+*   **Population Cible :** ${population || '[Non spécifié]'}
+*   **Version du Protocole :** V1.0
+*   **Date :** ${new Date().toLocaleDateString('fr-FR')}
+
+`;
+
+            selectedSections.forEach(section => {
+                protocolOutput += `
+### ${section.toUpperCase()}
+`;
+                switch (section) {
+                    case "Résumé du Protocole":
+                        protocolOutput += `
+    Brève description de l'étude, incluant les objectifs principaux, le design, la population d'étude, l'intervention, et les résultats attendus. Cette section fournit un aperçu rapide du protocole complet.
+`;
+                        break;
+                    case "Contexte et Justification":
+                        protocolOutput += `
+    Description de la maladie ou de la condition à l'étude, l'état actuel des connaissances, les traitements existants, et le rationnel pour l'étude de l'intervention proposée.
+`;
+                        break;
+                    case "Objectifs de l'Étude":
+                        protocolOutput += `
+    **Objectif Principal :** [Ex: Évaluer l'efficacité du composé XYZ dans la réduction de la tension artérielle systolique.]
+    **Objectifs Secondaires :** [Ex: Évaluer la sécurité du composé XYZ, son impact sur les marqueurs biologiques secondaires.]
+`;
+                        break;
+                    case "Critères d'Inclusion/Exclusion":
+                        protocolOutput += `
+    **Critères d'Inclusion :**
+    *   [Ex: Hommes et femmes âgés de 18 à 65 ans.]
+    *   [Ex: Diagnostic confirmé de la maladie selon les critères de l'OMS.]
+    *   [Ex: Consentement éclairé signé.]
+
+    **Critères d'Exclusion :**
+    *   [Ex: Femmes enceintes ou allaitantes.]
+    *   [Ex: Antécédents de maladies cardiovasculaires graves.]
+    *   [Ex: Participation à une autre étude clinique au cours des 30 derniers jours.]
+`;
+                        break;
+                    case "Méthodologie de l'Étude":
+                        protocolOutput += `
+    **Design de l'Étude :** [Ex: Étude randomisée, en double aveugle, contrôlée par placebo, multicentrique.]
+    **Durée de l'Étude :** [Ex: 12 mois de traitement, suivi de 3 mois d'observation.]
+    **Nombre de Participants :** [Ex: 300 participants, répartis en groupes de traitement et placebo.]
+    **Procédures :** [Ex: Visites de dépistage, randomisation, administration du traitement, visites de suivi, collectes de sang et d'urine.]
+`;
+                        break;
+                    case "Collecte et Gestion des Données":
+                        protocolOutput += `
+    Description des méthodes de collecte des données (eCRF, formulaires papier), de leur saisie, de leur validation et de leur gestion pour assurer l'intégrité et la confidentialité.
+`;
+                        break;
+                    case "Considérations Éthiques":
+                        protocolOutput += `
+    Détail des mesures prises pour assurer la protection des droits et du bien-être des participants, y compris l'obtention du consentement éclairé, l'approbation du Comité d'Éthique, et la confidentialité des données.
+`;
+                        break;
+                    case "Plan d'Analyse Statistique":
+                        protocolOutput += `
+    Description des méthodes statistiques qui seront utilisées pour analyser les données de l'étude, y compris la taille de l'échantillon, les analyses primaires et secondaires, et la gestion des données manquantes.
+`;
+                        break;
+                    case "Calendrier de l'Étude":
+                        protocolOutput += `
+    Présentation des étapes clés et des délais prévus pour la réalisation de l'étude, de la soumission réglementaire à la publication des résultats.
+`;
+                        break;
+                    case "Références":
+                        protocolOutput += `
+    Liste des publications scientifiques et des directives réglementaires citées ou pertinentes pour la conception et l'exécution de l'étude.
+`;
+                        break;
+                    default:
+                        protocolOutput += `
+    Contenu détaillé pour la section "${section}".
+`;
+                        break;
+                }
+                protocolOutput += `
+`; // Add a newline for separation
+            });
+
+            document.getElementById('tool-result').innerHTML = `<div class="result-section">${protocolOutput}</div>`;
+        });
+    </script>
+<div id="qa-smoke-result" hidden></div>
+<script id="farmbuilder-affiliate-helper">
+(function () {
+  window.__UTILITY_AFFILIATE_MAP = window.__UTILITY_AFFILIATE_MAP || {};
+  document.addEventListener("click", function (event) {
+    const target = event.target.closest("[data-affiliate-slot]");
+    if (!target) return;
+    const slot = target.getAttribute("data-affiliate-slot");
+    const href = window.__UTILITY_AFFILIATE_MAP[slot];
+    if (!href) return;
+    if (target.tagName && target.tagName.toLowerCase() === "a") {
+      target.setAttribute("href", href);
+      target.removeAttribute("rel");
+      return;
+    }
+    event.preventDefault();
+    window.open(href, "_blank");
+  }, true);
+})();
+</script>
+<script id="farmbuilder-functional-qa">
+(function () {
+  function marker() {
+    let node = document.getElementById("qa-smoke-result");
+    if (node) return node;
+    node = document.createElement("div");
+    node.id = "qa-smoke-result";
+    node.hidden = true;
+    document.body.appendChild(node);
+    return node;
+  }
+
+  let qaFinished = false;
+  let qaWatchdog = null;
+
+  function normalize(text) {
+    return String(text || "").replace(/\s+/g, " ").trim();
+  }
+
+  function findForm() {
+    return document.getElementById("tool-form") || document.querySelector("form");
+  }
+
+  function findResult() {
+    return (
+      document.getElementById("tool-result") ||
+      document.querySelector("[data-result]") ||
+      document.querySelector(".tool-result, .result-card, .result, .results, .output, .preview, .diagnostic, .analysis")
+    );
+  }
+
+  function primaryAction(form) {
+    if (!form) return null;
+    return (
+      document.getElementById("tool-submit") ||
+      form.querySelector("#tool-submit") ||
+      form.querySelector("[data-primary-action]") ||
+      form.querySelector("button[type=submit]") ||
+      form.querySelector("button") ||
+      form.querySelector("input[type=submit]")
+    );
+  }
+
+  function resultSignature(node) {
+    if (!node) return "";
+    const text = normalize(node.textContent);
+    const html = normalize(node.innerHTML).slice(0, 600);
+    return `${text}||${html}`;
+  }
+
+  function resultHeadline(node) {
+    if (!node) return "";
+    const heading = node.querySelector("h1, h2, h3, strong, b");
+    return normalize(heading ? heading.textContent : "");
+  }
+
+  function sampleText(field) {
+    const key = `${field.id || ""} ${field.name || ""} ${field.placeholder || ""}`.toLowerCase();
+    if (/email/.test(key)) return "bonjour@example.com";
+    if (/url|site|website|lien/.test(key)) return "https://example.com/offre-solaire";
+    if (/phone|tel|mobile/.test(key)) return "0612345678";
+    if (/ville|city|localisation|location|region|departement|postal/.test(key)) return "Paris";
+    if (/orientation/.test(key)) return "sud";
+    if (/keyword|theme|topic|sujet|subject/.test(key)) return "energie solaire domestique";
+    if (/titre|title/.test(key)) return "Simulateur solaire maison";
+    if (/nom|name|project/.test(key)) return "Projet Horizon";
+    if (/description|notes|content|message/.test(key)) return "Maison individuelle exposee sud avec toiture exploitable.";
+    return field.placeholder || "France";
+  }
+
+  function sampleNumber(field) {
+    const key = `${field.id || ""} ${field.name || ""}`.toLowerCase();
+    if (/inclinaison|angle|slope/.test(key)) return "30";
+    if (/surface|size|m2|sqm/.test(key)) return "28";
+    if (/annee|year/.test(key)) return "2024";
+    if (/prix|price|budget|cost|amount|montant/.test(key)) return "12000";
+    const min = Number(field.min || "");
+    const max = Number(field.max || "");
+    if (Number.isFinite(min) && Number.isFinite(max) && max >= min) {
+      return String(Math.min(max, Math.max(min, min + Math.round((max - min) * 0.35))));
+    }
+    if (Number.isFinite(min)) return String(Math.max(min, 12));
+    if (Number.isFinite(max)) return String(Math.min(max, 12));
+    return field.value || "12";
+  }
+
+  function applySample(field) {
+    const tag = (field.tagName || "").toLowerCase();
+    const type = (field.type || "").toLowerCase();
+    if (field.disabled) return;
+    if (type === "hidden" || type === "submit" || type === "button" || type === "reset" || type === "image" || type === "file") {
+      return;
+    }
+    const currentValue = normalize(field.value);
+    if (tag === "select") {
+      if (currentValue) return;
+      const option = Array.from(field.options || []).find((item) => item.value && !item.disabled) || field.options[0];
+      if (option) field.value = option.value;
+      return;
+    }
+    if (type === "checkbox") {
+      if (field.checked) return;
+      field.checked = true;
+      return;
+    }
+    if (type === "radio") {
+      if (field.checked) return;
+      field.checked = true;
+      return;
+    }
+    if (type === "date") {
+      if (currentValue) return;
+      field.value = "2026-03-01";
+      return;
+    }
+    if (type === "email") {
+      if (currentValue) return;
+      field.value = "bonjour@example.com";
+      return;
+    }
+    if (type === "url") {
+      if (currentValue) return;
+      field.value = "https://example.com/offre-solaire";
+      return;
+    }
+    if (type === "tel") {
+      if (currentValue) return;
+      field.value = "0612345678";
+      return;
+    }
+    if (type === "color") {
+      if (currentValue) return;
+      field.value = "#2f855a";
+      return;
+    }
+    if (type === "number" || type === "range") {
+      if (currentValue) return;
+      field.value = sampleNumber(field);
+      return;
+    }
+    if (currentValue) return;
+    field.value = sampleText(field);
+  }
+
+  function stamp(status, detail, headline, primary) {
+    if (qaFinished) return;
+    qaFinished = true;
+    if (qaWatchdog) {
+      window.clearTimeout(qaWatchdog);
+      qaWatchdog = null;
+    }
+    const node = marker();
+    node.dataset.status = status;
+    node.dataset.mode = "native-form";
+    node.dataset.detail = detail || "";
+    node.dataset.headline = headline || "";
+    node.dataset.primary = primary || "";
+    node.dataset.viewport = window.innerWidth <= 640 ? "mobile" : "desktop";
+    window.setTimeout(function () {
+      try {
+        window.stop();
+      } catch (_error) {}
+    }, 0);
+  }
+
+  function installModalGuards() {
+    const noop = function () {};
+    const approve = function () { return true; };
+    const empty = function () { return ""; };
+    try { window.alert = noop; } catch (_error) {}
+    try { window.confirm = approve; } catch (_error) {}
+    try { window.prompt = empty; } catch (_error) {}
+  }
+
+  function triggerAction(form, action) {
+    try {
+      if (typeof form.requestSubmit === "function") {
+        form.requestSubmit(action || undefined);
+        return;
+      }
+    } catch (_error) {}
+    if (action && typeof action.click === "function") {
+      action.click();
+      return;
+    }
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+  }
+
+  function inspectResult(before, attemptsLeft) {
+    const result = findResult();
+    if (!result) {
+      stamp("fail", "La zone de resultat est introuvable.", "");
+      return;
+    }
+    const after = resultSignature(result);
+    const text = normalize(result.textContent);
+    if (after && after !== before && text.length >= 24) {
+      const primary = result.querySelector("a[href], button[data-href], [data-primary-url]") || document.querySelector("#tool-result a[href]");
+      stamp("pass", "Le formulaire natif a mis a jour la zone de resultat.", resultHeadline(result), primary ? (primary.getAttribute("href") || primary.getAttribute("data-primary-url") || "") : "");
+      return;
+    }
+    if (attemptsLeft > 0) {
+      window.setTimeout(function () {
+        inspectResult(before, attemptsLeft - 1);
+      }, 250);
+      return;
+    }
+    stamp("fail", "La zone de resultat n'a pas renvoye de contenu exploitable.", resultHeadline(result));
+  }
+
+  function runSmoke() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("__qa") !== "functional") return;
+    qaWatchdog = window.setTimeout(function () {
+      stamp("fail", "QA smoke timed out before the page reported a usable result.", "");
+    }, 7000);
+    const form = findForm();
+    if (!form) {
+      stamp("fail", "Le formulaire principal est introuvable.", "");
+      return;
+    }
+    const result = findResult();
+    const before = resultSignature(result);
+    installModalGuards();
+    try {
+      form.querySelectorAll("input, select, textarea").forEach(applySample);
+    } catch (error) {
+      stamp("fail", error && error.message ? `QA smoke sample failed: ${error.message}` : "QA smoke sample failed before submit.", "");
+      return;
+    }
+    const action = primaryAction(form);
+    try {
+      triggerAction(form, action);
+    } catch (error) {
+      stamp("fail", error && error.message ? `QA smoke submit failed: ${error.message}` : "QA smoke submit failed.", "");
+      return;
+    }
+    inspectResult(before, 10);
+  }
+
+  window.addEventListener("error", function (event) {
+    const message = event && event.message ? event.message : "JavaScript runtime error during QA smoke.";
+    stamp("fail", `QA smoke JS error: ${message}`, "");
+  }, { once: true });
+
+  window.addEventListener("unhandledrejection", function (event) {
+    const reason = event && event.reason;
+    const detail = typeof reason === "string"
+      ? reason
+      : reason && reason.message
+        ? reason.message
+        : "Unhandled promise rejection during QA smoke.";
+    stamp("fail", `QA smoke rejection: ${detail}`, "");
+  }, { once: true });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      window.setTimeout(runSmoke, 60);
+    }, { once: true });
+  } else {
+    window.setTimeout(runSmoke, 60);
+  }
+})();
+</script>
+</body>
+</html>
